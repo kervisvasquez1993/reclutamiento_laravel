@@ -1,7 +1,9 @@
 @extends('layouts.app')
-{{-- @section('style')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.min.css" integrity="sha512-zYqhQjtcNMt8/h4RJallhYRev/et7+k/HDyry20li5fWSJYSExP9O07Ung28MUuXDneIFg0f2/U3HJZWsTNAiw==" crossorigin="anonymous" />
-@endsection --}}
+@section('style')
+{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/css/medium-editor.min.css" integrity="sha512-zYqhQjtcNMt8/h4RJallhYRev/et7+k/HDyry20li5fWSJYSExP9O07Ung28MUuXDneIFg0f2/U3HJZWsTNAiw==" crossorigin="anonymous" /> --}}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.3/basic.min.css" integrity="sha512-MeagJSJBgWB9n+Sggsr/vKMRFJWs+OUphiDV7TJiYu+TNQD9RtVJaPDYP8hA/PAjwRnkdvU+NsTncYTKlltgiw==" crossorigin="anonymous" />
+@endsection 
+
 @section('navegacion')
    @include('ui.adminnav')
 @endsection
@@ -90,7 +92,14 @@
            <textarea id="descripcion" name="descripcion" class="p-3 bg-gray-100 rounded from-input w-full text-gray-700"></textarea>
         </div>
 
+        <div class="mb-5">
+            <label for="descripcion" class="block text-gray-700 text-sm mb-2">Imagen del Puesto </label>
+            <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100 w-full"></div>
+            <input type="hidden" name="imagen" id="imagen">
+        </div>
+        
 
+        
         
         
 
@@ -102,16 +111,54 @@
     </form>
 @endsection
 @section('script')
-{{--   <script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.3/dropzone.min.js" integrity="sha512-L47BqLPr0M0lidKzXCJ85j56toelWAHk13G+uhjrzPy8RoVF3Jd+R04w0XaroXWwXgc1p/EjMdO2YOrdQxeUYw==" crossorigin="anonymous"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/medium-editor/5.23.3/js/medium-editor.min.js" integrity="sha512-5D/0tAVbq1D3ZAzbxOnvpLt7Jl/n8m/YGASscHTNYsBvTcJnrYNiDIJm6We0RPJCpFJWowOPNz9ZJx7Ei+yFiA==" crossorigin="anonymous"></script>
     <script>
+        Dropzone.autoDiscover = false
         document.addEventListener('DOMContentLoaded', () => {
-            const editor = new MediumEditor('.editable', {
+           /*  const editor = new MediumEditor('.editable', {
                 toolbar : {
                     buttons: ['bold', 'italic', 'underline', 'anchor','quote' 'h2', 'h3' ],
                     static : true,
                     sticky : true
                 }
-            })
+            }) */
+
+            //dropzone
+            const dropzoneDevJob = new Dropzone('#dropzoneDevJobs', {
+                url : "/vacantes/imagen",
+                dictDefaultMessage: "Sube tu archivo",
+                acceptedFile : '.png, .jpg, .jpeg, .bmp',
+                addRemoveLinks: true,
+                dictRemoveFile : 'Borrar archivo',
+                headers : {
+                    'X-CSRF-TOKEN' : document.querySelector('meta[name=csrf-token]').content
+                },
+                success : function(file, response)
+                {
+                    document.querySelector('#imagen').value = response.correcto
+                    
+                },
+                error : function(file, response){
+                    /* console.log(response)
+                    console.log(file) */
+                },
+                maxfileesexceeded : function(file)
+                {
+                    if(this.files[1] != null)
+                    {
+                        this.removeFile(this.file[0]) // eliminar el archivo anterior
+                    }
+                },
+                removedfile: function(file, response)
+                {
+                    /* console.log('el archivo fue borrado: ', file) */
+                }
+            });
+
+
         })
-    </script> --}}
+    </script> 
+
+   
   @endsection
