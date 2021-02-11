@@ -93,9 +93,25 @@
         </div>
 
         <div class="mb-5">
-            <label for="descripcion" class="block text-gray-700 text-sm mb-2">Imagen del Puesto </label>
+            <label for="skills" class="block text-gray-700 text-sm mb-2">Habiliades y Conocimientos</label>
+            @php
+              $skills = ['HTML5', 'CSS3', 'CSSGrid', 'Flexbox', 'JavaScript', 'jQuery', 'Node', 'Angular', 'VueJS', 'ReactJS', 'React Hooks', 'Redux', 'Apollo', 
+                         'GraphQL', 'TypeScript', 'PHP', 'Laravel', 'Symfony', 'Python', 'Django', 'ORM', 'Sequelize', 'Mongoose', 'SQL', 'MVC', 'SASS', 'WordPress', 
+                         'Express', 'Deno', 'React Native', 'Flutter', 'MobX', 'C#', 'Ruby on Rails']
+            @endphp
+            <lista-skills
+                :skills = "{{json_encode($skills)}}"
+            ></lista-skills>
+
+            
+            
+        </div>
+
+        <div class="mb-5">
+            <label for="descripcion" class="block text-gray-700 text-sm mb-2"></label>
             <div id="dropzoneDevJobs" class="dropzone rounded bg-gray-100 w-full"></div>
             <input type="hidden" name="imagen" id="imagen">
+            <div id="error"></div>
         </div>
         
 
@@ -136,23 +152,35 @@
                 },
                 success : function(file, response)
                 {
+                    console.log(response)
                     document.querySelector('#imagen').value = response.correcto
+
+                    /* añadir al objeto de archivo el nombre del servidor */
+
+                    file.nombreServidor = response.correcto
                     
                 },
-                error : function(file, response){
-                    /* console.log(response)
-                    console.log(file) */
-                },
-                maxfileesexceeded : function(file)
+                maxfilesexceeded : function(file)
                 {
-                    if(this.files[1] != null)
+                    console.log('muchos archivos')
+                     if(this.files[1] != null)
                     {
                         this.removeFile(this.file[0]) // eliminar el archivo anterior
-                    }
-                },
+                        this.addFile(file) // agregar el nuevo archivo
+                    } 
+                }, 
                 removedfile: function(file, response)
                 {
-                    /* console.log('el archivo fue borrado: ', file) */
+                    /* console.log('el archivo fue borrado: ', file) 
+                    document.querySelector("#error").textContent= "Formato no valido" */
+                    
+                   file.previewElement.parentNode.removeChild(file.previewElement)
+                    params = 
+                    {
+                        imagen : file.nombreServidor
+                    }
+                    axios.post('/vacantes/borrarimagen', params)
+                    .then(respuesta => console.log(respuesta))
                 }
             });
 
