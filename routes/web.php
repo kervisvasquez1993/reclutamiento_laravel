@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\VacanteController;
+use App\Vacante;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +25,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // vacantes
+/* 
+Route::get('/vacantes', 'VacanteController@index')->name('vacantes.index');
+Route::get('/vacantes/create', 'VacanteController@create')->name('vacantes.create');
+Route::post('/vacantes, VacanteController@store')->name('vacantes.store'); */
+Route::resource('/vacantes', 'VacanteController');
 
-Route::get('vacantes', 'VacanteController@index')->name('vacantes.index');
-Route::get('vacantes/create', 'VacanteController@create')->name('vacantes.create');
 
 //subir imagenes
 
 Route::post('vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
 Route::post('vacantes/borrarimagen', 'VacanteController@borrarImagen' )->name('vacante.borrar');
+
