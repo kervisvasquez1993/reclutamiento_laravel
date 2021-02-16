@@ -133,8 +133,23 @@
         </div>
 
         <div class="mb-5">
-            <label for="descripcion" class="block text-gray-700 text-sm mb-2">Descripcion de Puesto </label>
-           <textarea id="descripcion" name="descripcion" class="p-3 bg-gray-100 rounded from-input w-full text-gray-700"></textarea>
+            <label for="descripcion" 
+            class="block text-gray-700 text-sm mb-2">Descripcion de Puesto </label>
+           <textarea id="descripcion"
+                     name="descripcion"
+                     class="p-3 bg-gray-100 rounded from-input w-full text-gray-700" 
+                     value={{old('descripcion')}}></textarea>
+           @error('salario')
+           <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-3 mb-6" role="alert">
+               <strong class="font-bold">Error!</strong>
+               <span class="block">{{$message}}</span>
+           </div>
+       @enderror
+        </div>
+        <div class="mb-5 ">
+            <label for="descripcion" class="block text-gray-700 text-sm mb-2">Imagen del Puesto </label>
+            <div id="dropzoneDevJobs" class="dropzone rounded  bg-gray-100 w-full"></div>
+            <input type="hidden" name="imagen" id="imagen" value="{{old('imagen')}}">
         </div>
 
         <div class="mb-5">
@@ -187,6 +202,24 @@
                 headers : {
                     'X-CSRF-TOKEN' : document.querySelector('meta[name=csrf-token]').content
                 },
+                init: function()
+                {
+                    if(document.querySelector('#imagen').value.trim())
+                    {
+                        let imagenPublicada = {}
+                        imagenPublicada.size = 1234
+                        imagenPublicada.name = document.querySelector('#imagen').value
+
+                        this.options.addedfile.call(this, imagenPublicada)
+                        this.options.thumbnail.call(this, imagenPublicada, `/stotage/vacante/${imagenPublicada.name}`)
+                        imagenPublicada.previewElement.classList.add('dz-success')
+                        imagenPublicada.previewElement.classList.add('dz-complete')
+                    }
+                    else
+                    {
+                        console.log('no hay nada')
+                    }
+                },
                 success : function(file, response)
                 {
                     console.log(response)
@@ -214,7 +247,7 @@
                    file.previewElement.parentNode.removeChild(file.previewElement)
                     params = 
                     {
-                        imagen : file.nombreServidor
+                        imagen : file.nombreServidor ?? document.querySelector('#imagen').value
                     }
                     axios.post('/vacantes/borrarimagen', params)
                     .then(respuesta => console.log(respuesta))
