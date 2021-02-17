@@ -23,17 +23,19 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+/* rutas protegidas */
+Route::group(['middleware' => ['auth']], function(){
+    Route::get('/vacantes', 'VacanteController@index')->name('vacantes.index'); 
+    Route::get('/vacantes/create', 'VacanteController@create')->name('vacantes.create');
+    Route::post('/vacantes', 'VacanteController@store')->name('vacantes.store');
+    //subir imagenes
+    Route::post('vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
+    Route::post('vacantes/borrarimagen', 'VacanteController@borrarImagen' )->name('vacante.borrar');
+});
 
-// vacantes
-/* 
-Route::get('/vacantes', 'VacanteController@index')->name('vacantes.index');
-Route::get('/vacantes/create', 'VacanteController@create')->name('vacantes.create');
-Route::post('/vacantes, VacanteController@store')->name('vacantes.store'); */
-Route::resource('/vacantes', 'VacanteController');
+//
+Route::get('/vacantes/{vacante}', 'VacanteController@show')->name('vacante.show');
 
 
-//subir imagenes
 
-Route::post('vacantes/imagen', 'VacanteController@imagen')->name('vacantes.imagen');
-Route::post('vacantes/borrarimagen', 'VacanteController@borrarImagen' )->name('vacante.borrar');
 

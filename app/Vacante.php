@@ -18,4 +18,9 @@ class Vacante extends Model
         
 
     ]; 
+    /* relacion uno a uno categoria vacante */
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+    }
 }
