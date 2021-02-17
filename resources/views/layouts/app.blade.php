@@ -71,7 +71,7 @@
 
         </div>
 
-        <main class="py-4 text-center">
+        <main class="mt-10 container mx-auto ">
             @yield('content')
         </main>
     </div>
