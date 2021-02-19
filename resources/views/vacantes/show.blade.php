@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('style')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.css" integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA==" crossorigin="anonymous" />
+@endsection
 @section('navegacion')
    @include('ui.adminnav')
 @endsection
@@ -44,7 +47,9 @@
             
         </p>
         @endforeach
-
+        <a href="/storage/vacante/{{$vacante->imagen}}" data-lightbox="imagen" data-titulo={{$vacante->titulo}}>  
+           <img src="/storage/vacante/{{$vacante->imagen}}" alt="imagen de vacante" class="w-40 mt-10">
+        </a>
         <div class="descripcion mt-10 mb-5">
             {!!$vacante->descripcion!!}
         </div>
