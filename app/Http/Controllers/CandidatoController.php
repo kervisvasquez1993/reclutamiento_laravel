@@ -39,16 +39,23 @@ class CandidatoController extends Controller
         $data = $request->validate([
             'nombre' => 'required',
             'email'  => 'required|email',
-            /* 'cv'     =>  'required|mimes:pdf', */
+             'cv'     =>  'required|mimes:pdf', 
             'vacante_id' => 'required'
         ]);
         
-
+        if($request->file('cv'))
+        {
+            $archivo = $request->file('cv');
+            $nombreArchivo = time().".". $request->file('cv')->extension();
+            $ubicacion = public_path('/storage/cv');
+            $archivo->move($ubicacion, $nombreArchivo);
+            
+        }
         $vacante = Vacante::find($data['vacante_id']);
         $vacante->candidatos()->create([
             'nombre' => $data['nombre'],
             'email'  => $data['email'],
-            'cv'     => '123456.pdf'
+            'cv'     => $nombreArchivo
         ]);
         
         //primera forma 
@@ -70,7 +77,7 @@ class CandidatoController extends Controller
 
         $candidato->save(); */
 
-        return "desde vacante";
+        return back()->with('estado', 'Tus datos se enviaron correctamente');
         
     }
 
