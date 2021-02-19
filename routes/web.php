@@ -33,8 +33,10 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('vacantes/borrarimagen', 'VacanteController@borrarImagen' )->name('vacante.borrar');
 });
 
-//
-Route::get('/vacantes/{vacante}', 'VacanteController@show')->name('vacante.show');
+//enviar datos para la vacantes
+
+Route::post('/candidatos/store' , 'CandidatoController@store')->name('candidato.store');
+Route::get('/vacantes/{vacante}', 'VacanteController@show')->name('vacantes.show');
 
 
 

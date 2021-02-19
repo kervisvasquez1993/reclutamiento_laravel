@@ -12,6 +12,13 @@
 <div class="mt-10 mb-20 md:flex items-start">
     <div class="md:w-3/5 ">
         <p class="block text-gray-700 font-bold my-2">
+            Publicado: <span class="font-normal">
+                {{$vacante->categoria->created_at->diffForHumans()}},
+                Por
+                {{$vacante->reclutador->name}}
+            </span>
+        </p>
+        <p class="block text-gray-700 font-bold my-2">
             Fecha: <span class="font-normal">
                 {{$vacante->categoria->created_at->diffForHumans()}}
             </span>
@@ -54,9 +61,7 @@
             {!!$vacante->descripcion!!}
         </div>
     </div>
-    <aside class="md:w-2/5">
-        2
-    </aside>
+    @include('ui.contacto')
 </div>
 
 
