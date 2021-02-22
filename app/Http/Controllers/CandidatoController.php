@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Candidato;
+use App\Notifications\NuevoCandidato;
 use App\Vacante;
 use Illuminate\Http\Request;
 
@@ -57,6 +58,11 @@ class CandidatoController extends Controller
             'email'  => $data['email'],
             'cv'     => $nombreArchivo
         ]);
+
+        $reclutador = $vacante->reclutador;
+
+        $reclutador->notify( new NuevoCandidato($vacante->titulo));
+        return back()->with('estado', 'Tus datos se enviaron correctamente');
         
         //primera forma 
        /*  $candidato = new Candidato();
@@ -77,7 +83,7 @@ class CandidatoController extends Controller
 
         $candidato->save(); */
 
-        return back()->with('estado', 'Tus datos se enviaron correctamente');
+       
         
     }
 

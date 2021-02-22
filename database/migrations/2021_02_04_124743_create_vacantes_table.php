@@ -32,7 +32,7 @@ class CreateVacantesTable extends Migration
         Schema::create('vacantes', function (Blueprint $table) {
             $table->id();
             $table->string('titulo');
-            $table->string('imagen');
+            $table->string('imagen')->nullable();
             $table->text('skills');
             $table->foreignId('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
             $table->foreignId('experiencia_id')->references('id')->on('experiencias')->onDelete('cascade');

@@ -58,7 +58,7 @@ class VacanteController extends Controller
             'ubicacion' => 'required',
             'salario' => 'required',
             'descripcion' => 'required', 
-            'imagen' => 'required', 
+            
             'skills' => 'required' 
             
             ]);
@@ -67,7 +67,7 @@ class VacanteController extends Controller
             /* almacenar en la bd  */
             auth()->user()->vacantes()->create([
                 'titulo' => $data['titulo'],
-                'imagen' => $data['imagen'],
+                'imagen' => $request['imagen'],
                 'descripcion' => $data['descripcion'],
                 'skills' => $data['skills'],
                 'experiencia_id' => $data['experiencia'],
