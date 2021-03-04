@@ -115,9 +115,7 @@
                       focus:outline-none focus:bg-gray-300 
                       focus:border-gray-500 p-3 bg-white"
                 name="salario" 
-                id="salario"
-                >
-                    <option value="" disabled selected>Selecciona</option>
+                id="salario"Imagen del Puestoion>
                     @foreach($salarios as $salario)
                             <option 
                             {{old('salario') == $salario->id ? 'selected' : ''}}
@@ -163,14 +161,6 @@
                 :skills = "{{json_encode($skills)}}"
             ></lista-skills>
         </div>
-
-      
-        
-
-        
-        
-        
-
         <button
             type="submit"
             class="bg-red-500 w-full hover:bg-teal-600 text-gray-100 font-bold p-3 focus:outline focus:shadow-outline uppercase">
