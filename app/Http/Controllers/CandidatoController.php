@@ -14,9 +14,13 @@ class CandidatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        // obtener id de la vacante
+        $id = $request->route('id');
+        //obtener los candidatos
+        $vacantes  = Vacante::findOrFail($id);
+        return view('candidatos.index', compact('vacantes'));
     }
 
     /**

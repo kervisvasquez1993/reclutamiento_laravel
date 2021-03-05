@@ -37,7 +37,7 @@ Route::group(['middleware' => ['auth']], function(){
 });
 
 //enviar datos para la vacantes
-
+Route::get('/candidatos/{id}', 'CandidatoController@index')->name('candidatos.index');
 Route::post('/candidatos/store' , 'CandidatoController@store')->name('candidato.store');
 Route::get('/vacantes/{vacante}', 'VacanteController@show')->name('vacantes.show');
 
