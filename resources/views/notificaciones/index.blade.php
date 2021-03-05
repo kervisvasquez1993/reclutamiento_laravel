@@ -16,6 +16,15 @@
                     Tienes un nuevo candidato en :
                     <span class="font-bold"> {{$data['vacante']}}</span>
                 </p>
+
+                <a href="{{route('candidatos.index', ['id' => $data['id_vacante']])}}" class="mb-4">
+                    Ver vacante0
+                </a>
+
+                <p class="mb-4">
+                    Fecha de Registro :
+                    <span class="font-bold"> {{$notificacion->created_at->diffForHumans()}}</span>
+                </p>
             </li>    
                 
                 
