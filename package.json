@@ -27,6 +27,7 @@
     },
     "dependencies": {
         "chokidar": "^2.1.8",
-        "lightbox2": "^2.11.3"
+        "lightbox2": "^2.11.3",
+        "vue-sweetalert2": "^4.2.0"
     }
 }

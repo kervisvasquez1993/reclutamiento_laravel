@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vacante extends Model
 {
+    protected $table = 'vacantes';
     protected $fillable = [
         'titulo', 
         'imagen',
