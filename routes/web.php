@@ -41,6 +41,10 @@ Route::get('/candidatos/{id}', 'CandidatoController@index')->name('candidatos.in
 Route::post('/candidatos/store' , 'CandidatoController@store')->name('candidato.store');
 Route::get('/vacantes/{vacante}', 'VacanteController@show')->name('vacantes.show');
 
+//cambiar estado de la vacante
+
+Route::post('/vacantes/{vacante}', 'VacanteController@estado')->name('vacante.estado');
+
 
 
 

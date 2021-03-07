@@ -1976,9 +1976,30 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     claseEstadoVacante: function claseEstadoVacante() {
-      return this.estadoVacanteData === 1 ? "bg-green-100 text-green-800" : "bg-red-100 text-green-800";
+      return this.estadoVacanteData === 1 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800";
     },
-    cambiarEstado: function cambiarEstado() {}
+    cambiarEstado: function cambiarEstado() {
+      if (this.estadoVacanteData === 1) {
+        this.estadoVacanteData = 0;
+      } else {
+        this.estadoVacanteData = 1;
+      } // Enviar a axios
+
+
+      var params = {
+        estado: this.estadoVacanteData
+      };
+      axios.post('/vacantes/' + this.vacanteId, params).then(function (respuesta) {
+        return console.log(respuesta);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    }
+  },
+  computed: {
+    estadoVacante: function estadoVacante() {
+      return this.estadoVacanteData === 1 ? 'Activa' : 'Inactiva';
+    }
   }
 });
 
@@ -38218,11 +38239,11 @@ var render = function() {
     {
       key: _vm.estadoVacanteData,
       staticClass:
-        "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800",
+        "px-2 inline-flex text-xs leading-5 font-semibold rounded-full",
       class: _vm.claseEstadoVacante(),
       on: { click: _vm.cambiarEstado }
     },
-    [_vm._v("\n                Activa\n")]
+    [_vm._v("\n                " + _vm._s(_vm.estadoVacante) + "\n")]
   )
 }
 var staticRenderFns = []
